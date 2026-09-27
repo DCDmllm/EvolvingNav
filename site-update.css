@@ -68,3 +68,16 @@ body{overflow-x:clip}
 @media(prefers-reduced-motion:reduce){
   .background-crosses,.background-orbit{animation:none}
 }
+
+/* Real-world cases follow the paper's compact sequence-figure treatment. */
+.sequence-grid{gap:18px;align-items:start}
+.real-world-sequence{display:block!important;min-width:0;padding:13px!important;background:#fff;border:1px solid #d9dcdf;border-radius:5px;box-shadow:0 9px 24px -24px #20242a}
+.real-world-sequence .figure-number{display:block;margin:0 0 10px;color:#707780;font:700 10px/1.2 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.real-world-sequence .figure-open{display:block;padding:0;background:#f2f3f4;border-radius:2px}
+.real-world-sequence .figure-open img{display:block;width:100%;height:auto;object-fit:contain}
+.real-world-sequence figcaption{display:block;margin-top:12px;padding:12px 2px 2px;border-top:1px solid #eceef0;line-height:1.6;color:#707782}
+.real-world-sequence figcaption b{color:#3f454c;font-weight:600}
+@media(max-width:760px){
+  .sequence-grid{grid-template-columns:1fr!important;gap:18px}
+  .real-world-sequence{padding:10px!important}
+}
