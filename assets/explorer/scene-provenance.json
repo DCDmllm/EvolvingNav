@@ -1,0 +1,337 @@
+{
+  "purpose": "Genuine HSSD scene backgrounds for an illustrative website interaction",
+  "annotations": "Object hypotheses, time changes, belief values and quadruped animation are authored demonstrations, not benchmark outputs or learned-policy rollouts.",
+  "projection_note": "Downward-facing perspective render. Routes are projected at NavMesh floor elevation; furniture anchor pixels are visually selected image positions.",
+  "scenes": [
+    {
+      "scene_id": "104348511_171513654",
+      "image": "assets/explorer/hssd_104348511_topdown.png",
+      "image_size": [
+        1300,
+        1500
+      ],
+      "recommended_viewbox": [
+        120,
+        100,
+        1080,
+        1080
+      ],
+      "capture_script": "reports/agent_evidence_update_20260914/capture_topdown_v2.py",
+      "capture_manifest": "reports/agent_evidence_update_20260914/assets/capture_manifest.json",
+      "source_notes": "reports/agent_evidence_update_20260914/README_v2.md",
+      "render_engine": "Habitat-Sim",
+      "task_target_added": false,
+      "camera": {
+        "eye": [
+          -8.34,
+          11,
+          -3.38
+        ],
+        "look_at": [
+          -8.34,
+          0,
+          -3.38
+        ],
+        "hfov_degrees": 43
+      },
+      "anchors_px": {
+        "coffee_table": [
+          686,
+          408
+        ],
+        "kitchen_island": [
+          487,
+          985
+        ],
+        "dining_table": [
+          1030,
+          870
+        ]
+      },
+      "robot_points_px": {
+        "start": [
+          361,
+          661
+        ],
+        "coffee_table": [
+          468,
+          457
+        ],
+        "kitchen_island": [
+          788,
+          1007
+        ],
+        "dining_table": [
+          817,
+          850
+        ]
+      },
+      "navigation_check": {
+        "navmesh": "data/4d_dynnav/hssd/multiscene/104348511_171513654/navmeshes/104348511_171513654.navmesh",
+        "floor_y": 0.17658868432044983,
+        "all_points_navigable": true,
+        "paths": [
+          {
+            "from": "start",
+            "to": "coffee_table",
+            "found": true,
+            "length_m": 1.5109581947,
+            "points_px": [
+              [
+                361,
+                661
+              ],
+              [
+                468,
+                457
+              ]
+            ]
+          },
+          {
+            "from": "coffee_table",
+            "to": "kitchen_island",
+            "found": true,
+            "length_m": 4.3134069443,
+            "points_px": [
+              [
+                468,
+                457
+              ],
+              [
+                528.5,
+                695.3
+              ],
+              [
+                719.1,
+                870.6
+              ],
+              [
+                788,
+                1007
+              ]
+            ]
+          },
+          {
+            "from": "kitchen_island",
+            "to": "dining_table",
+            "found": true,
+            "length_m": 1.0472089052,
+            "points_px": [
+              [
+                788,
+                1007
+              ],
+              [
+                817,
+                850
+              ]
+            ]
+          }
+        ],
+        "method": "Habitat-Sim PathFinder.load_nav_mesh; is_navigable; find_path. Projection derived from recorded camera geometry.",
+        "limit": "Does not establish quadruped footprint clearance, dynamics, sensing or policy performance; route smoothing must not cut obstacle corners."
+      },
+      "anchors_crop_normalized": {
+        "coffee_table": [
+          0.52407,
+          0.28519
+        ],
+        "kitchen_island": [
+          0.33981,
+          0.81944
+        ],
+        "dining_table": [
+          0.84259,
+          0.71296
+        ]
+      },
+      "robot_points_crop_normalized": {
+        "start": [
+          0.22315,
+          0.51944
+        ],
+        "coffee_table": [
+          0.32222,
+          0.33056
+        ],
+        "kitchen_island": [
+          0.61852,
+          0.83981
+        ],
+        "dining_table": [
+          0.64537,
+          0.69444
+        ]
+      },
+      "original_source": "reports/agent_evidence_update_20260914/assets/hssd_104348511_topdown.png",
+      "sha256": "a53944b1c072121c0dde1f1629193e33249fddcef6ee4fa6a084493916227a83"
+    },
+    {
+      "scene_id": "102344280",
+      "image": "assets/explorer/hssd_102344280_topdown.png",
+      "image_size": [
+        1400,
+        900
+      ],
+      "recommended_viewbox": [
+        240,
+        170,
+        1150,
+        585
+      ],
+      "capture_script": "reports/agent_evidence_update_20260914/capture_topdown.py",
+      "render_engine": "Habitat-Sim",
+      "task_target_added": false,
+      "camera": {
+        "eye": [
+          -7.3,
+          9,
+          2.7
+        ],
+        "look_at": [
+          -7.3,
+          0,
+          2.7
+        ],
+        "hfov_degrees": 75
+      },
+      "anchors_px": {
+        "dining_table": [
+          493,
+          423
+        ],
+        "center_table": [
+          1040,
+          470
+        ],
+        "kitchen_sink": [
+          945.4,
+          644.1
+        ]
+      },
+      "robot_points_px": {
+        "start": [
+          720,
+          310
+        ],
+        "dining_table": [
+          650,
+          429
+        ],
+        "center_table": [
+          1010,
+          295
+        ],
+        "kitchen_sink": [
+          926.9,
+          558.3
+        ]
+      },
+      "navigation_check": {
+        "navmesh": "data/4d_dynnav/hssd/hssd-hab-subset/navmeshes/102344280.navmesh",
+        "floor_y": 0.15372097492218018,
+        "all_points_navigable": true,
+        "paths": [
+          {
+            "from": "start",
+            "to": "dining_table",
+            "found": true,
+            "length_m": 1.3388005495,
+            "points_px": [
+              [
+                720,
+                310
+              ],
+              [
+                650,
+                429
+              ]
+            ]
+          },
+          {
+            "from": "dining_table",
+            "to": "kitchen_sink",
+            "found": true,
+            "length_m": 2.9634537697,
+            "points_px": [
+              [
+                650,
+                429
+              ],
+              [
+                926.9,
+                558.3
+              ]
+            ]
+          },
+          {
+            "from": "kitchen_sink",
+            "to": "center_table",
+            "found": true,
+            "length_m": 3.4616861343,
+            "points_px": [
+              [
+                926.9,
+                558.3
+              ],
+              [
+                869.8,
+                528.2
+              ],
+              [
+                859.5,
+                512.7
+              ],
+              [
+                864.7,
+                456
+              ],
+              [
+                1010,
+                295
+              ]
+            ]
+          }
+        ],
+        "method": "Habitat-Sim PathFinder.load_nav_mesh; is_navigable; find_path. Projection derived from recorded camera geometry.",
+        "limit": "Does not establish quadruped footprint clearance, dynamics, sensing or policy performance; route smoothing must not cut obstacle corners."
+      },
+      "related_verified_replay": "reports/4d_dynnav/case_study_102344280_20260908/capture_manifest.json",
+      "related_replay_note": "Related source is a separately documented qualitative bowl tabletop-to-sink replay, not the website interaction.",
+      "anchors_crop_normalized": {
+        "dining_table": [
+          0.22,
+          0.43248
+        ],
+        "center_table": [
+          0.69565,
+          0.51282
+        ],
+        "kitchen_sink": [
+          0.61339,
+          0.81043
+        ]
+      },
+      "robot_points_crop_normalized": {
+        "start": [
+          0.41739,
+          0.23932
+        ],
+        "dining_table": [
+          0.35652,
+          0.44274
+        ],
+        "center_table": [
+          0.66957,
+          0.21368
+        ],
+        "kitchen_sink": [
+          0.5973,
+          0.66376
+        ]
+      },
+      "original_source": "reports/agent_evidence_update_20260914/assets/hssd_102344280_topdown.png",
+      "sha256": "2d48e3021ddc215beaa91597a240bdac9b528e9b7ada56a96bc10c435591748e"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+/* Real-world figures have different native aspect ratios. This shared media
+   stage keeps the two panels and their captions aligned without cropping. */
+.real-world {
+  align-items: stretch;
+}
+
+.real-world .paper-figure {
+  display: grid;
+  grid-template-rows: 360px auto;
+  align-content: start;
+}
+
+.real-world-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.real-world-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.real-world .paper-figure figcaption {
+  min-height: 32px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 760px) {
+  .real-world .paper-figure {
+    grid-template-rows: auto auto;
+  }
+
+  .real-world-media img {
+    height: auto;
+  }
+}
