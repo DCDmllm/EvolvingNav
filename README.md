@@ -8,7 +8,7 @@
 
 <p>
   <a href="main.pdf">Paper</a> &nbsp;·&nbsp;
-  <a href="https://dcdmllm.github.io/EvolvingNav/">Project page</a> &nbsp;·&nbsp;
+  <a href="https://dcdmllm.github.io/EvolvingNav/">Project page</a> &nbsp;
 </p>
 
 </div>
