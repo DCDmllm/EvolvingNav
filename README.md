@@ -9,7 +9,6 @@
 <p>
   <a href="main.pdf">Paper</a> &nbsp;·&nbsp;
   <a href="https://dcdmllm.github.io/EvolvingNav/">Project page</a> &nbsp;·&nbsp;
-  <a href="https://github.com/fengnian123/DR-AgentOS">Code repository</a>
 </p>
 
 </div>
