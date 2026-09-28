@@ -87,14 +87,15 @@ def load_belief(checkpoint_path, dataset_root):
 
     catalog = load_catalog(dataset_root)
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
-    if checkpoint["model_name"] != "p4d":
+    if checkpoint.get("model_name", "p4d" if "transition_head" in checkpoint else None) != "p4d":
         raise ValueError("checkpoint is not a P4D belief model")
     model = build_model("p4d", catalog, ModelConfig(**checkpoint["model_config"]))
     model.load_state_dict(checkpoint["model"])
     return model.eval(), catalog.schema
 
 
-def predict_public(model, schema: dict, arrays: dict[str, np.ndarray]) -> dict[int, float]:
+def model_input_batch(arrays: dict[str, np.ndarray], schema: dict):
+    """Strict public-input allowlist for belief and transition inference."""
     import torch
 
     last_state = int(derive_last_state(arrays)[0])
@@ -112,6 +113,14 @@ def predict_public(model, schema: dict, arrays: dict[str, np.ndarray]) -> dict[i
     batch["target_instance_id"] = torch.tensor([vocabulary[instance]])
     batch["last_state"] = torch.tensor([last_state])
     batch["last_candidate_index"] = torch.tensor([last_index])
+    return batch
+
+
+def predict_public(model, schema: dict, arrays: dict[str, np.ndarray]) -> dict[int, float]:
+    batch = model_input_batch(arrays, schema)
+    candidates = arrays["candidate_state_ids"][0].tolist()
+    import torch
+
     with torch.inference_mode():
         probabilities = model(batch)["probabilities"][0].cpu().numpy()
     return {int(state): float(probabilities[index]) for index, state in enumerate(candidates) if state >= 0}

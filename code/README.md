@@ -1,58 +1,101 @@
-# EvolvingNav N1/N2 code
+# EvolvingNav Agent
 
-## Files
+## Code
 
-| Path | Purpose |
+| Path | Function |
 | --- | --- |
 | `src/readyagent/p4d_belief/` | Continuous-time history encoder and persistence–relocation belief |
-| `scripts/pack_p4d_hssd_records.py` | Pack query records into model tensors |
-| `scripts/train_p4d_belief.py` | Train and save belief checkpoints |
-| `evolvingnav_paper/policy.py` | Public-query packing and N1/N2 candidate selection |
-| `evolvingnav_paper/perception.py` | Frozen Grounding DINO + SAM2 inspection |
-| `evolvingnav_paper/backend.py` | Habitat rendering and geodesic paths |
-| `evolvingnav_paper/evaluate.py` | STOP, success and SPL evaluation |
-| `evolvingnav_paper/run.py` | N1/N2 episode runner |
-| `evolvingnav_paper/verify_visual.py` | Independent visual and viewpoint check |
+| `evolvingnav_paper/memory.py` | Causal entity versions, RGB-D backprojection and evidence provenance |
+| `evolvingnav_paper/transition_model.py` | Row-normalized chronological transition head |
+| `evolvingnav_paper/filter.py` | Current-time belief, arrival forecasts and evidence rounds |
+| `evolvingnav_paper/coverage.py`, `calibration.py` | Online depth coverage and validation-fitted detection probability |
+| `evolvingnav_paper/agent.py`, `controller.py` | Event-driven actions and frozen VLM tool selection |
+| `evolvingnav_paper/world.py`, `backend.py`, `run.py` | Habitat action adapter and benchmark runner |
+| `scripts/` | Dataset packing, belief/transition training and calibration |
 | `tests/` | Unit tests |
 
-## Run
+## Environment
 
-Use Python 3.11 with Habitat-Sim 0.3.3 installed. Install the remaining Python dependencies in that environment:
+Use Python 3.11 with Habitat-Sim 0.3.3 installed.
 
 ```bash
 cd code
 python -m pip install -r requirements.txt
 export PYTHONPATH=.:src:scripts
 export MAGNUM_LOG=quiet HABITAT_SIM_LOG=quiet
-```
-
-Set absolute paths to the prepared belief dataset, navigation task dataset, HSSD scene assets and NavMesh cache:
-
-```bash
 export P4D_DATASET=/absolute/path/to/p4d_hssd_30d_v0.6.0
 export NAV_TASKS=/absolute/path/to/p4d_navigation_107734254_v1.0
 export HSSD_ROOT=/absolute/path/to/hssd-hab
-export NAVMESH_ROOT=/absolute/path/to/navmeshes
+export NAVMESH_ROOT=/absolute/path/to/hssd-hab/navmeshes
 ```
 
-`P4D_DATASET` contains `records/packed/train.npz`, `val.npz` and `feature_schema.json`. `NAV_TASKS` contains `public/episodes_n2.jsonl`, `public/query_inputs.jsonl`, `private/evaluation_gt.jsonl` and `catalogs/`.
+## Train
+
+If `records/packed/{train,val,test}.npz` are absent:
 
 ```bash
-python -m pytest tests -q
+python scripts/pack_p4d_hssd_records.py --root "$P4D_DATASET"
+```
+
+Train the query-time belief and the chronological transition head:
+
+```bash
 python scripts/train_p4d_belief.py \
   --dataset-root "$P4D_DATASET" --output runs/p4d_seed0 \
   --seeds 0 --skip-classical
+python scripts/train_transition.py \
+  --dataset "$P4D_DATASET" \
+  --belief-checkpoint runs/p4d_seed0/checkpoints/p4d/seed_0/best.pt \
+  --output runs/transition_seed0
+```
+
+Collect held-out RGB-D validation observations and fit detector calibration:
+
+```bash
+python scripts/collect_calibration.py \
+  --dataset "$P4D_DATASET" --tasks "$NAV_TASKS" \
+  --hssd-root "$HSSD_ROOT" --navmesh-root "$NAVMESH_ROOT" \
+  --limit 8 --output runs/calibration_val.jsonl
+python scripts/fit_calibration.py \
+  --validation-jsonl runs/calibration_val.jsonl \
+  --output runs/detection_calibration.json
+```
+
+## Run
+
+Run the event-driven N3 Agent with Grounding DINO + SAM2:
+
+```bash
 python -m evolvingnav_paper.run \
-  --task n2 --world static --limit 2 \
+  --task n3 --world static --limit 10 \
   --dataset "$P4D_DATASET" --tasks "$NAV_TASKS" \
   --hssd-root "$HSSD_ROOT" --navmesh-root "$NAVMESH_ROOT" \
   --checkpoint runs/p4d_seed0/checkpoints/p4d/seed_0/best.pt \
-  --output runs/n2_static_2
-python -m evolvingnav_paper.verify_visual runs/n2_static_2 \
+  --calibration runs/detection_calibration.json \
+  --output runs/n3_static_10
+python -m evolvingnav_paper.verify_visual runs/n3_static_10 \
   --tasks "$NAV_TASKS" --hssd-root "$HSSD_ROOT" \
   --navmesh-root "$NAVMESH_ROOT"
 ```
 
-The perception model IDs and pinned revisions are in `configs/perception.yaml`. To use local model directories, pass `--grounding-dino-model /path/to/model` and `--sam2-model /path/to/model` to `evolvingnav_paper.run`.
+Add `--controller luna` and set `OPENAI_API_KEY` to use the frozen GPT-5.6-Luna tool controller. Model IDs and revisions for Grounding DINO and SAM2 are in `configs/perception.yaml`.
 
-Each evaluation run uses a new output directory and writes `policy.jsonl`, `scores.jsonl` and `summary.json`. `verify_visual` writes `visual_check.json` into that directory.
+For an N4 task directory with `public/episodes_n4.jsonl`, each private `target_motion_schedule` event supplies seconds after query (`time_s`), `target_position_xyz`, `current_state_id`, and `valid_goal_viewpoints`:
+
+```bash
+python -m evolvingnav_paper.run \
+  --task n4 --world routine --limit 2 \
+  --dataset "$P4D_DATASET" --tasks /absolute/path/to/n4_tasks \
+  --hssd-root "$HSSD_ROOT" --navmesh-root "$NAVMESH_ROOT" \
+  --checkpoint runs/p4d_seed0/checkpoints/p4d/seed_0/best.pt \
+  --transition-checkpoint runs/transition_seed0/best.pt \
+  --output runs/n4_routine_2
+```
+
+Every run writes `policy.jsonl`, `scores.jsonl` and `summary.json` to a new output directory.
+
+## Tests
+
+```bash
+python -m pytest tests -q
+```

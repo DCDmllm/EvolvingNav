@@ -15,7 +15,7 @@ from evolvingnav_paper.run import rows
 
 def arguments(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("run", type=Path, help="a completed N1/N2 run directory")
+    parser.add_argument("run", type=Path, help="a completed N1/N2/N3 run directory")
     parser.add_argument("--tasks", type=Path, required=True)
     parser.add_argument("--hssd-root", type=Path, required=True)
     parser.add_argument("--navmesh-root", type=Path, required=True)

@@ -99,6 +99,23 @@ def test_model_receives_last_state_derived_from_public_history() -> None:
     assert predict_public(RecordingModel(), schema, arrays) == {1: 0.800000011920929, 2: 0.20000000298023224}
 
 
+def test_transition_model_batch_contains_no_evaluator_fields() -> None:
+    from evolvingnav_paper.policy import model_input_batch
+
+    arrays = {
+        "event_type": np.array([[1]], dtype=np.int8),
+        "history_mask": np.array([[True]]),
+        "observed_state_id": np.array([[1]], dtype=np.int16),
+        "candidate_state_ids": np.array([[1, 2]], dtype=np.int16),
+        "candidate_mask": np.array([[True, True]]),
+        "instance_uuid": np.array(["mug_1"]),
+        "evaluation_private": np.array([123]),
+    }
+    result = model_input_batch(arrays, {"instance_uuid_to_id": {"mug_1": 0}})
+    assert "evaluation_private" not in result
+    assert result["last_state"].item() == 1
+
+
 def test_public_packing_rejects_future_observation() -> None:
     import pytest
 
@@ -238,6 +255,19 @@ def test_grounded_sam_policy_detection_uses_rgb_depth_and_category_only() -> Non
     assert detect_category(
         detector, segmenter, np.zeros((2, 2, 4), dtype=np.uint8), "bottle"
     ) is True
+
+
+def test_grounded_sam_returns_mask_for_rgbd_memory_backprojection() -> None:
+    from evolvingnav_paper.perception import detect_instances
+
+    found = detect_instances(
+        lambda _rgb, _categories: (("bottle", 0.9, (0., 0., 1., 1.)),),
+        lambda _rgb, _box: np.ones((2, 2), dtype=bool),
+        np.zeros((2, 2, 4), dtype=np.uint8), "bottle",
+    )
+    assert len(found) == 1
+    assert found[0].confidence == 0.9
+    assert found[0].mask.sum() == 4
 
 
 def test_grounded_sam_requires_a_nonempty_target_category_mask() -> None:

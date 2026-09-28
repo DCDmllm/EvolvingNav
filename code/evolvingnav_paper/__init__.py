@@ -1,1 +1,1 @@
-"""EvolvingNav N1/N2 benchmark entry point."""
+"""EvolvingNav predictive belief and event-driven embodied Agent."""

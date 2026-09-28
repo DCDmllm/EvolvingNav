@@ -418,6 +418,8 @@ class P4DBelief(PointerBase):
             "rho": rho,
             "relocation_probabilities": relocation,
             "relocation_mask": relocation_mask,
+            "context": query,
+            "candidates": candidates,
         }
 
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -13,18 +14,31 @@ Detector = Callable[[np.ndarray, tuple[str, ...]], tuple[Detection, ...]]
 Segmenter = Callable[[np.ndarray, tuple[float, float, float, float]], np.ndarray]
 
 
-def detect_category(
-    detector: Detector, segmenter: Segmenter, rgb: np.ndarray, category: str
-) -> bool:
-    """Use only the rendered RGB image and public target category for STOP."""
+@dataclass(frozen=True)
+class InstanceDetection:
+    category: str
+    confidence: float
+    mask: np.ndarray
+
+
+def detect_instances(detector: Detector, segmenter: Segmenter,
+                     rgb: np.ndarray, category: str) -> tuple[InstanceDetection, ...]:
     image = np.asarray(rgb)[..., :3]
-    for label, _score, box in detector(image, (category,)):
+    found = []
+    for label, score, box in detector(image, (category,)):
         if label != category:
             continue
         mask = np.asarray(segmenter(image, box), dtype=bool)
         if mask.shape == image.shape[:2] and mask.any():
-            return True
-    return False
+            found.append(InstanceDetection(label, float(score), mask))
+    return tuple(found)
+
+
+def detect_category(
+    detector: Detector, segmenter: Segmenter, rgb: np.ndarray, category: str
+) -> bool:
+    """Use only the rendered RGB image and public target category for STOP."""
+    return bool(detect_instances(detector, segmenter, rgb, category))
 
 
 class GroundedSAMInspector:
@@ -38,6 +52,9 @@ class GroundedSAMInspector:
 
     def __call__(self, rgb: np.ndarray, _depth: np.ndarray, category: str) -> bool:
         return detect_category(self.detector, self.segmenter, rgb, category)
+
+    def detect_instances(self, rgb: np.ndarray, category: str) -> tuple[InstanceDetection, ...]:
+        return detect_instances(self.detector, self.segmenter, rgb, category)
 
     def close(self) -> None:
         del self.detector, self.segmenter

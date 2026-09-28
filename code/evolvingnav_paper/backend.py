@@ -35,9 +35,14 @@ class HabitatInspectionBackend:
         self.public_viewpoints = public_viewpoints
         self.detector = detector
         self.real = None
+        self.target_only = None
+        self.target_only_object_id = None
         self.object_id = None
         self.truth = None
         self.projected_pixels = {}
+        self.last_observation = None
+        self.last_detections = ()
+        self.last_semantic = None
 
     def distance(self, start, goal) -> float:
         if self.real is None:
@@ -61,12 +66,13 @@ class HabitatInspectionBackend:
         sim.perform_discrete_collision_detection()
         return obj.object_id
 
-    def prepare(self, truth: dict, target: dict, candidate_ids: list[int]) -> None:
+    def prepare(self, truth: dict, target: dict, candidate_ids: list[int],
+                *, dynamic: bool = False) -> None:
         self.clear()
         if self.real is not None:
             self.real.close()
             self.real = None
-        self.truth = truth
+        self.truth = dict(truth)
         self.semantic_id = int(target["semantic_instance_id"])
         self.target_category = str(target["category_canonical"])
         config = habitat_sim.SimulatorConfiguration()
@@ -78,7 +84,7 @@ class HabitatInspectionBackend:
         agent.sensor_specifications = sensor_specs(320, 240)
         target_only = habitat_sim.Simulator(habitat_sim.Configuration(config, [agent]))
         try:
-            self._place_target(target_only, truth, target)
+            target_only_id = self._place_target(target_only, truth, target)
             self.projected_pixels = {}
             for state in candidate_ids:
                 viewpoint = self.public_viewpoints[state]
@@ -89,7 +95,11 @@ class HabitatInspectionBackend:
                 semantic = np.asarray(target_only.get_sensor_observations()["semantic"])
                 self.projected_pixels[state] = int(np.count_nonzero(semantic == self.semantic_id))
         finally:
-            target_only.close()
+            if not dynamic:
+                target_only.close()
+        if dynamic:
+            self.target_only = target_only
+            self.target_only_object_id = target_only_id
         self.real = make_simulator(
             self.hssd_root, self.scene_id, self.navmesh, self.gpu, 320, 240
         )
@@ -101,22 +111,39 @@ class HabitatInspectionBackend:
         viewpoint = self.public_viewpoints[state]
         set_agent(self.real.get_agent(0), position, viewpoint["rotation_xyzw"])
         observations = self.real.get_sensor_observations()
+        self.last_observation = {
+            "rgb": np.asarray(observations["rgb"]),
+            "depth": np.asarray(observations["depth"]),
+        }
         actual = np.asarray(observations["semantic"])
+        self.last_semantic = actual
         actual_pixels = int(np.count_nonzero(actual == self.semantic_id))
-        projected_pixels = self.projected_pixels[state]
+        if self.target_only is not None:
+            set_agent(self.target_only.get_agent(0), position, viewpoint["rotation_xyzw"])
+            projection = np.asarray(self.target_only.get_sensor_observations()["semantic"])
+            projected_pixels = int(np.count_nonzero(projection == self.semantic_id))
+        else:
+            projected_pixels = self.projected_pixels[state]
         visible_fraction = min(1.0, actual_pixels / projected_pixels) if projected_pixels else 0.0
         goal_distance = min(
             self.distance(position, goal["position_xyz"])
             for goal in self.truth["valid_goal_viewpoints"]
         )
-        detected = (
-            self.detector(
+        if self.detector is not None and hasattr(self.detector, "detect_instances"):
+            self.last_detections = self.detector.detect_instances(
+                np.asarray(observations["rgb"]), self.target_category
+            )
+            detected = bool(self.last_detections)
+        elif self.detector is not None:
+            self.last_detections = ()
+            detected = self.detector(
                 np.asarray(observations["rgb"]),
                 np.asarray(observations["depth"]),
                 self.target_category,
             )
-            if self.detector is not None else actual_pixels > 0
-        )
+        else:
+            self.last_detections = ()
+            detected = actual_pixels > 0
         return {
             "detected": detected,
             "visible_fraction": visible_fraction,
@@ -125,11 +152,34 @@ class HabitatInspectionBackend:
             "projected_target_pixels": projected_pixels,
         }
 
+    def move_target(self, event: dict) -> None:
+        if self.real is None or self.object_id is None:
+            raise RuntimeError("prepare an episode before moving its target")
+        position = mn.Vector3(*event["target_position_xyz"])
+        self.real.get_rigid_object_manager().get_object_by_id(self.object_id).translation = position
+        if self.target_only is not None and self.target_only_object_id is not None:
+            self.target_only.get_rigid_object_manager().get_object_by_id(
+                self.target_only_object_id
+            ).translation = position
+        self.real.perform_discrete_collision_detection()
+        self.truth["target_position_xyz"] = event["target_position_xyz"]
+        if "valid_goal_viewpoints" in event:
+            self.truth["valid_goal_viewpoints"] = event["valid_goal_viewpoints"]
+        if "current_state_id" in event:
+            self.truth["current_state_id"] = event["current_state_id"]
+
     def clear(self) -> None:
         if self.real is not None and self.object_id is not None:
             self.real.get_rigid_object_manager().remove_object_by_id(self.object_id)
         self.object_id = None
         self.truth = None
+        self.last_observation = None
+        self.last_detections = ()
+        self.last_semantic = None
+        if self.target_only is not None:
+            self.target_only.close()
+            self.target_only = None
+            self.target_only_object_id = None
 
     def close(self) -> None:
         self.clear()
