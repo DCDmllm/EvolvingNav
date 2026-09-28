@@ -8,7 +8,8 @@
 
 <p>
   <a href="main.pdf">Paper</a> &nbsp;·&nbsp;
-  <a href="https://dcdmllm.github.io/EvolvingNav/">Project page</a> &nbsp;
+  <a href="https://dcdmllm.github.io/EvolvingNav/">Project page</a> &nbsp;·&nbsp;
+  <a href="https://github.com/DCDmllm/EvolvingNav/tree/main/code">Code</a>
 </p>
 
 </div>
@@ -132,7 +133,7 @@ The project page contains twelve lightweight-linked demonstrations across HSSD, 
 
 ## Code
 
-See [code/README.md](code/README.md) for the files, environment and run commands.
+Browse the [code directory](https://github.com/DCDmllm/EvolvingNav/tree/main/code) or see [code/README.md](code/README.md) for the files, environment and run commands.
 
 ## Citation
 
