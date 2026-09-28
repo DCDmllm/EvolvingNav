@@ -125,9 +125,14 @@ The project page contains twelve lightweight-linked demonstrations across HSSD, 
 ├── index.html                         # project page
 ├── academic.css / site-*.css          # academic layout and styling
 ├── world-explorer.js                   # interactive 4D memory explorer
+├── code/                               # model, N1/N2 runner, tests and commands
 ├── figures/                            # paper figures and web-rendered panels
 └── assets/explorer/                    # HSSD scene provenance and map asset
 ~~~
+
+## Code
+
+See [code/README.md](code/README.md) for the files, environment and run commands.
 
 ## Citation
 
