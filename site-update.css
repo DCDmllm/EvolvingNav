@@ -74,6 +74,7 @@ body{overflow-x:clip}
 .paper-authors{max-width:980px;margin:0 auto 25px;color:#303942}
 .author-line{display:flex;justify-content:center;flex-wrap:wrap;column-gap:13px;row-gap:5px;margin:0 auto 9px!important;font-size:15px;line-height:1.6;letter-spacing:-.01em}
 .author-line span{white-space:nowrap}
+.author-line .author-break{flex-basis:100%;height:0;white-space:normal}
 .author-line sup,.affiliation-line sup,.author-notes sup{font-size:.66em;line-height:0;vertical-align:super;color:#6e7781}
 .affiliation-line{max-width:1000px!important;margin:0 auto 5px!important;color:#68727d!important;font-size:12px!important;line-height:1.6!important}
 .author-notes{margin:0!important;color:#89919a!important;font-size:10px!important;line-height:1.5!important;letter-spacing:.01em}
