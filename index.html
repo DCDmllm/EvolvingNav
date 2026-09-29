@@ -24,7 +24,13 @@
 
   <main id="top" class="page-width">
     <section class="paper-heading">
+      <div class="paper-kicker">PERSISTENT EMBODIED NAVIGATION <span>·</span> RESEARCH PROJECT</div>
       <h1 class="latest-paper-title"><span class="title-project">Beyond the Remembered World<span class="title-colon">:</span></span> <span class="title-description">Predictive 4D Belief for<br class="desktop" /> Persistent Navigation in Evolving Worlds</span></h1>
+      <div class="paper-authors" aria-label="Paper authors">
+        <p class="author-line"><span>Mingjian Gao<sup>1,*</sup></span><span>Zhaocheng Li<sup>1,*</sup></span><span>Haoyang Huang<sup>2,*</sup></span><span>Wenqiao Zhang<sup>1,‡,†</sup></span><span>Yingjie NIU<sup>3,4,‡,†</sup></span><span>Hao Zhou<sup>1</sup></span><span>Chao LI<sup>3</sup></span><span>Juncheng LI<sup>1</sup></span><span>Siliang Tang<sup>1</sup></span><span>Yueting Zhuang<sup>1</sup></span></p>
+        <p class="affiliation-line"><sup>1</sup> Zhejiang University · <sup>2</sup> University of California, San Diego · <sup>3</sup> Deeprobotics · <sup>4</sup> The Chinese University of Hong Kong</p>
+        <p class="author-notes"><sup>*</sup> Equal contribution <span>·</span> <sup>‡</sup> Corresponding authors <span>·</span> <sup>†</sup> Project lead</p>
+      </div>
       <div class="paper-links" aria-label="Project resources">
         <a href="main.pdf" target="_blank" rel="noreferrer" class="resource-button"><span class="button-symbol">↗</span><span class="button-copy"><strong>Paper</strong><small>Read the manuscript</small></span></a>
         <a href="https://github.com/DCDmllm/EvolvingNav/tree/main/code" target="_blank" rel="noreferrer" class="resource-button"><span class="button-symbol">⌘</span><span class="button-copy"><strong>Code</strong><small>Browse the code</small></span></a>
@@ -60,12 +66,28 @@
           <figure class="hssd-video-card"><div class="hssd-video-label">04 · Re-open candidate</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/Habitat-GS/habitat_gs_demo4_reopen_candidate.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Re-opening a plausible candidate</figcaption></figure>
         </div>
       </section>
+      <div class="paper-highlights" aria-label="Paper highlights">
+        <div><strong>54</strong><span>scenes in<br />EvoWorld-Bench</span></div>
+        <div><strong>803.68K</strong><span>executable<br />task instances</span></div>
+        <div><strong>61.32%</strong><span>first-inspection<br />success rate</span></div>
+        <div><strong>86.18%</strong><span>budgeted search<br />success rate</span></div>
+      </div>
     </section>
 
     <figure class="main-figure">
       <img src="figures/overview_web_latest.png" alt="Overview of EvolvingNav, predictive 4D belief, EvoWorld-Bench, and persistent navigation tasks" width="1800" height="718" />
       <figcaption><b>Overview.</b> EvolvingNav converts timestamped 3D histories into a belief over the world at the agent’s future arrival time, then closes the loop with action, visibility-qualified evidence, belief revision, and memory update. EvoWorld-Bench evaluates this loop across predictive navigation, search, replanning, online dynamics, transfer, and embodied question answering.</figcaption>
     </figure>
+
+    <section class="core-loop" aria-labelledby="core-loop-title">
+      <div class="core-loop-intro"><span class="section-kicker">01 / CORE IDEA</span><h2 id="core-loop-title">A remembered world is a hypothesis.</h2><p>EvolvingNav treats navigation as an evidence loop: predict what will still be true at arrival, inspect only when the observation can change the decision, and revise the memory when the world disagrees.</p></div>
+      <div class="core-loop-grid">
+        <article><span class="loop-index">01</span><h3>Observe</h3><p>Build a timestamped 3D history from prior RGB-D observations.</p></article>
+        <article><span class="loop-index">02</span><h3>Predict</h3><p>Forecast persistence and relocation at each candidate arrival time.</p></article>
+        <article><span class="loop-index">03</span><h3>Inspect</h3><p>Use visibility-aware evidence to test the leading hypothesis.</p></article>
+        <article><span class="loop-index">04</span><h3>Update</h3><p>Revise belief, reopen plausible candidates, and replan.</p></article>
+      </div>
+    </section>
 
     <section id="abstract" class="paper-section abstract-section">
       <h2>Abstract</h2>

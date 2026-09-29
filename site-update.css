@@ -65,6 +65,44 @@ body{overflow-x:clip}
   .results-table{display:block;overflow-x:auto;white-space:nowrap}
   .hssd-video-label{min-height:31px;padding:7px 8px;font-size:9px}
 }
+
+/* Author block, paper highlights, and the short research story above the
+   long-form sections. This follows the visual rhythm of contemporary paper
+   pages while keeping the page deliberately academic. */
+.paper-kicker{margin:0 auto 20px;color:#6d7782;font:700 10px/1.2 Arial,sans-serif;letter-spacing:.19em}
+.paper-kicker span{color:#c47a4f;padding:0 5px}
+.paper-authors{max-width:1050px;margin:0 auto 25px;color:#303942}
+.author-line{display:flex;justify-content:center;flex-wrap:wrap;column-gap:13px;row-gap:4px;margin:0 auto 9px!important;font-size:14px;line-height:1.55;letter-spacing:-.01em}
+.author-line span{white-space:nowrap}
+.author-line sup,.affiliation-line sup,.author-notes sup{font-size:.66em;line-height:0;vertical-align:super;color:#6e7781}
+.affiliation-line{max-width:1000px!important;margin:0 auto 5px!important;color:#68727d!important;font-size:12px!important;line-height:1.6!important}
+.author-notes{margin:0!important;color:#89919a!important;font-size:10px!important;line-height:1.5!important;letter-spacing:.01em}
+.author-notes span{padding:0 6px;color:#c2c6ca}
+.paper-highlights{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:900px;margin:24px auto 0;border-top:1px solid #d9dde1;border-bottom:1px solid #d9dde1;text-align:left;background:rgba(255,255,255,.35)}
+.paper-highlights>div{display:flex;align-items:center;gap:10px;padding:13px 14px;border-right:1px solid #e2e5e8}
+.paper-highlights>div:last-child{border-right:0}
+.paper-highlights strong{color:#283b50;font:700 22px/1 Arial,sans-serif;letter-spacing:-.045em;white-space:nowrap}
+.paper-highlights span{color:#7a848e;font-size:10px;line-height:1.25;letter-spacing:.02em}
+.core-loop{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.6fr);gap:40px;align-items:start;padding:6px 0 56px;margin-bottom:12px;border-bottom:1px solid #dfe2e5}
+.core-loop-intro .section-kicker{display:block;margin-bottom:13px;color:#8a929b;font:700 10px/1 Arial,sans-serif;letter-spacing:.16em}
+.core-loop-intro h2{margin:0 0 12px;color:#2d3945;font-size:27px;line-height:1.15;letter-spacing:-.035em;font-weight:600}
+.core-loop-intro p{max-width:360px!important;color:#77818b!important;font-size:13px!important;line-height:1.7!important;margin:0!important}
+.core-loop-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid #dfe3e6;background:rgba(255,255,255,.72)}
+.core-loop-grid article{min-height:154px;padding:15px 14px 14px;border-right:1px solid #e2e5e8}
+.core-loop-grid article:last-child{border-right:0}
+.loop-index{display:block;margin-bottom:30px;color:#a36f54;font:700 10px/1 Arial,sans-serif;letter-spacing:.12em}
+.core-loop-grid h3{margin:0 0 7px;color:#344452;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.core-loop-grid p{margin:0!important;color:#7b858f!important;font-size:11px!important;line-height:1.5!important}
+@media(max-width:900px){
+  .paper-highlights>div{padding:12px 9px;gap:7px}.paper-highlights strong{font-size:19px}.paper-highlights span{font-size:9px}
+  .core-loop{grid-template-columns:1fr;gap:22px}.core-loop-intro p{max-width:700px!important}.core-loop-grid article{min-height:132px}
+}
+@media(max-width:600px){
+  .paper-kicker{font-size:8px;letter-spacing:.14em;margin-bottom:16px}
+  .paper-authors{margin-bottom:20px}.author-line{column-gap:9px;row-gap:3px;font-size:12px}.affiliation-line{font-size:10px!important}.author-notes{font-size:9px!important}
+  .paper-highlights{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:19px}.paper-highlights>div{min-height:59px;padding:10px 11px}.paper-highlights>div:nth-child(2){border-right:0}.paper-highlights>div:nth-child(-n+2){border-bottom:1px solid #e2e5e8}.paper-highlights strong{font-size:18px}.paper-highlights span{font-size:9px}
+  .core-loop{padding-bottom:38px}.core-loop-intro h2{font-size:24px}.core-loop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.core-loop-grid article:nth-child(2){border-right:0}.core-loop-grid article:nth-child(-n+2){border-bottom:1px solid #e2e5e8}.loop-index{margin-bottom:22px}
+}
 @media(prefers-reduced-motion:reduce){
   .background-crosses,.background-orbit{animation:none}
 }
