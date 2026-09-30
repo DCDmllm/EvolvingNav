@@ -11,23 +11,31 @@
   <link rel="stylesheet" href="site-design.css" />
   <link rel="stylesheet" href="site-polish.css" />
   <link rel="stylesheet" href="site-update.css?v=20260929" />
+  <link rel="stylesheet" href="editorial.css?v=20260930" />
   <script src="world-explorer.js" defer></script>
+  <script src="editorial.js?v=20260930" defer></script>
 </head>
 <body>
   <div class="site-background" aria-hidden="true"><span class="background-orbit background-orbit-one"></span><span class="background-orbit background-orbit-two"></span><span class="background-crosses"></span></div>
   <header class="site-header">
     <div class="page-width header-inner">
       <a href="#top" class="site-name">EvolvingNav</a>
-      <nav aria-label="Page navigation"><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#explorer">Explore</a><a href="#benchmark">Benchmark</a><a href="#results">Results</a></nav>
+      <nav aria-label="Page navigation"><a href="#demos">Demos</a><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#explorer">Explore</a><a href="#benchmark">Benchmark</a><a href="#results">Results</a></nav>
     </div>
   </header>
 
   <main id="top" class="page-width">
     <section class="paper-heading">
-      <div class="paper-kicker">PERSISTENT EMBODIED NAVIGATION <span>·</span> RESEARCH PROJECT</div>
-      <h1 class="latest-paper-title"><span class="title-project">Beyond the Remembered World<span class="title-colon">:</span></span> <span class="title-description">Predictive 4D Belief for<br class="desktop" /> Persistent Navigation in Evolving Worlds</span></h1>
+      <div class="cinema-hero">
+        <div class="hero-footage" aria-hidden="true">
+          <video class="ambient-video" muted loop playsinline preload="metadata" tabindex="-1" poster="assets/explorer/hssd_104348511_topdown.png" src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/HSSD/hssd_demo1_predictive_navigation.mp4"></video>
+          <video class="ambient-video" muted loop playsinline preload="metadata" tabindex="-1" src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/Habitat-GS/habitat_gs_demo1_arrival_aware.mp4"></video>
+        </div>
+        <div class="hero-content">
+      <div class="paper-kicker"><span class="status-dot"></span> EVOLVINGNAV <span>/</span> PERSISTENT EMBODIED NAVIGATION</div>
+      <h1 class="latest-paper-title"><span class="title-project">Beyond the Remembered World<span class="title-colon">:</span></span> <span class="title-description">Predictive 4D Belief for  Persistent Navigation in Evolving Worlds</span></h1>
       <div class="paper-authors" aria-label="Paper authors">
-        <p class="author-line"><span>Mingjian Gao<sup>1,*</sup></span><span>Zhaocheng Li<sup>1,*</sup></span><span>Haoyang Huang<sup>2,*</sup></span><span>Wenqiao Zhang<sup>1,‡,†</sup></span><span>Yingjie NIU<sup>3,4,‡,†</sup></span><span>Hao Zhou<sup>1</sup></span><span class="author-break" aria-hidden="true"></span><span>Chao LI<sup>3</sup></span><span>Juncheng LI<sup>1</sup></span><span>Siliang Tang<sup>1</sup></span><span>Yueting Zhuang<sup>1</sup></span></p>
+        <p class="author-line"><span>Mingjian Gao<sup>1,*</sup></span><span>Zhaocheng Li<sup>1,*</sup></span><span>Haoyang Huang<sup>2,*</sup></span><span>Wenqiao Zhang<sup>1,‡</sup></span><span>Yingjie NIU<sup>3,4,‡,†</sup></span><span>Hao Zhou<sup>1</sup></span><span>Chao Li<sup>3</sup></span><span>Juncheng Li<sup>1</sup></span><span>Siliang Tang<sup>1</sup></span><span>Yueting Zhuang<sup>1</sup></span></p>
         <p class="affiliation-line"><sup>1</sup> Zhejiang University · <sup>2</sup> University of California, San Diego · <sup>3</sup> Deeprobotics · <sup>4</sup> The Chinese University of Hong Kong</p>
         <p class="author-notes"><sup>*</sup> Equal contribution <span>·</span> <sup>‡</sup> Corresponding authors <span>·</span> <sup>†</sup> Project lead</p>
       </div>
@@ -37,8 +45,12 @@
         <a href="#bibtex" class="resource-button"><span class="button-symbol">{ }</span><span class="button-copy"><strong>BibTeX</strong><small>Citation entry</small></span></a>
         <a href="#explorer" class="resource-button explore-link"><span class="button-symbol">↓</span><span class="button-copy"><strong>Explore the method</strong><small>Interactive illustration</small></span></a>
       </div>
+        </div>
+        <div class="hero-bottom"><span>Predict the world. Inspect the evidence. Keep navigating.</span><button id="motion-toggle" type="button" aria-pressed="false">Pause background <span aria-hidden="true">Ⅱ</span></button></div>
+      </div>
+      <div class="demo-gallery" id="demos">
       <section class="hssd-demo-strip" aria-labelledby="hssd-scenes-title">
-        <div class="hssd-demo-heading"><h2 id="hssd-scenes-title">HSSD SCENES</h2><span class="hssd-demo-note">Four illustrative navigation episodes</span></div>
+        <div class="hssd-demo-heading"><h2 id="hssd-scenes-title">HSSD <span>Scenes</span></h2><span class="hssd-demo-note">Four illustrative navigation episodes</span></div>
         <div class="hssd-video-grid">
           <figure class="hssd-video-card"><div class="hssd-video-label">01 · Predictive navigation</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/HSSD/hssd_demo1_predictive_navigation.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Current-state belief</figcaption></figure>
           <figure class="hssd-video-card"><div class="hssd-video-label">02 · Belief-guided search</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/HSSD/hssd_demo2_belief_search.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Alternative hypotheses</figcaption></figure>
@@ -48,7 +60,7 @@
       </section>
 
       <section class="hssd-demo-strip" aria-labelledby="hm3d-scenes-title">
-        <div class="hssd-demo-heading"><h2 id="hm3d-scenes-title">HM3D SCENES</h2><span class="hssd-demo-note">Four long-horizon navigation episodes</span></div>
+        <div class="hssd-demo-heading"><h2 id="hm3d-scenes-title">HM3D <span>Scenes</span></h2><span class="hssd-demo-note">Four long-horizon navigation episodes</span></div>
         <div class="hssd-video-grid">
           <figure class="hssd-video-card"><div class="hssd-video-label">01 · Open-vocabulary object navigation</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/HM3D/hm3d_demo1_open_vocabulary_objectnav.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Open-vocabulary object navigation</figcaption></figure>
           <figure class="hssd-video-card"><div class="hssd-video-label">02 · Long-range cross-room search</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/HM3D/hm3d_demo2_long_range_cross_room_search.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Cross-room search under stale memory</figcaption></figure>
@@ -58,7 +70,7 @@
       </section>
 
       <section class="hssd-demo-strip" aria-labelledby="habitat-scenes-title">
-        <div class="hssd-demo-heading"><h2 id="habitat-scenes-title">HABITAT-GS SCENES</h2><span class="hssd-demo-note">Four evidence-aware navigation episodes</span></div>
+        <div class="hssd-demo-heading"><h2 id="habitat-scenes-title">Habitat-GS <span>Scenes</span></h2><span class="hssd-demo-note">Four evidence-aware navigation episodes</span></div>
         <div class="hssd-video-grid">
           <figure class="hssd-video-card"><div class="hssd-video-label">01 · Arrival-aware navigation</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/Habitat-GS/habitat_gs_demo1_arrival_aware.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Arrival-time-aware prediction</figcaption></figure>
           <figure class="hssd-video-card"><div class="hssd-video-label">02 · En-route evidence</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/Habitat-GS/habitat_gs_demo2_enroute_evidence.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Evidence gathered during navigation</figcaption></figure>
@@ -66,6 +78,7 @@
           <figure class="hssd-video-card"><div class="hssd-video-label">04 · Re-open candidate</div><div class="hssd-video-frame"><video src="https://raw.githubusercontent.com/fengnian123/DR-AgentOS/website-media/videos/Habitat-GS/habitat_gs_demo4_reopen_candidate.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div><figcaption>Re-opening a plausible candidate</figcaption></figure>
         </div>
       </section>
+      </div>
       <div class="paper-highlights" aria-label="Paper highlights">
         <div><strong>54</strong><span>scenes in<br />EvoWorld-Bench</span></div>
         <div><strong>803.68K</strong><span>executable<br />task instances</span></div>
@@ -74,13 +87,14 @@
       </div>
     </section>
 
+    <div class="overview-heading"><span class="section-kicker">01 / THE BIG PICTURE</span><h2>Navigation in a world<br />that keeps changing.</h2><p>From remembered observations to predictive belief — and from belief to evidence-driven action.</p></div>
     <figure class="main-figure">
       <img src="figures/overview_web_latest.png" alt="Overview of EvolvingNav, predictive 4D belief, EvoWorld-Bench, and persistent navigation tasks" width="1800" height="718" />
       <figcaption><b>Overview.</b> EvolvingNav converts timestamped 3D histories into a belief over the world at the agent’s future arrival time, then closes the loop with action, visibility-qualified evidence, belief revision, and memory update. EvoWorld-Bench evaluates this loop across predictive navigation, search, replanning, online dynamics, transfer, and embodied question answering.</figcaption>
     </figure>
 
     <section class="core-loop" aria-labelledby="core-loop-title">
-      <div class="core-loop-intro"><span class="section-kicker">01 / CORE IDEA</span><h2 id="core-loop-title">A remembered world is a hypothesis.</h2><p>EvolvingNav treats navigation as an evidence loop: predict what will still be true at arrival, inspect only when the observation can change the decision, and revise the memory when the world disagrees.</p></div>
+      <div class="core-loop-intro"><span class="section-kicker">THE CENTRAL INSIGHT</span><h2 id="core-loop-title">A remembered world is a hypothesis.</h2><p>EvolvingNav treats navigation as an evidence loop: predict what will still be true at arrival, inspect only when the observation can change the decision, and revise the memory when the world disagrees.</p></div>
       <div class="core-loop-grid">
         <article><span class="loop-index">01</span><h3>Observe</h3><p>Build a timestamped 3D history from prior RGB-D observations.</p></article>
         <article><span class="loop-index">02</span><h3>Predict</h3><p>Forecast persistence and relocation at each candidate arrival time.</p></article>
@@ -90,13 +104,13 @@
     </section>
 
     <section id="abstract" class="paper-section abstract-section">
-      <h2>Abstract</h2>
+      <span class="section-kicker">02 / RESEARCH SUMMARY</span><h2>Abstract</h2>
       <p>Persistent embodied agents must act from memories that can become stale: objects move while the agent is away, continue evolving during navigation, and may remain hidden even after an inspection. Existing methods do not jointly account for this continued hidden-world evolution and visibility-conditioned belief revision.</p>
       <p>We introduce <b>EvolvingNav</b>, which turns timestamped 3D histories into a persistence–relocation belief over the current world. Its event-driven filter forecasts object state at candidate arrival times, invokes a frozen zero-shot vision-language model only when new RGB-D evidence is informative, and replans when evidence invalidates a candidate. We also introduce <b>EvoWorld-Bench</b>, a 54-scene benchmark with 803.68K tasks. EvolvingNav improves first-inspection decisions, budgeted search, and recovery, with the largest gains when environmental change has learnable regularity.</p>
     </section>
 
     <section id="method" class="paper-section">
-      <h2>Method</h2>
+      <span class="section-kicker">03 / THE METHOD</span><h2>From memory to action.</h2>
       <p>EvolvingNav represents each remembered entity with a timestamped 3D history and a factorized belief: a persistence term estimates whether the last observed state remains valid, while a relocation term distributes probability over plausible destinations. Instead of predicting only at query time, the planner forecasts the belief at each candidate’s estimated arrival time.</p>
       <figure class="paper-figure full latest-method-figure"><a class="figure-open" href="figures/method.pdf" target="_blank" rel="noreferrer" aria-label="Open the complete EvolvingNav method figure"><img src="figures/method_web_latest.png" alt="EvolvingNav pipeline from temporal 3D memory to arrival-time belief, inspection, and evidence-conditioned replanning" loading="lazy" width="1800" height="909" /></a><figcaption><div><b>Predictive 4D belief and closed-loop navigation.</b> A current-time filter summarizes the latent world, candidate-specific forecasting evaluates future arrival states, and visibility-qualified RGB-D evidence updates only hypotheses that should have been observable.</div><a href="figures/method.pdf" target="_blank" rel="noreferrer">View full diagram ↗</a></figcaption></figure>
       <p>Execution proceeds in short action chunks. After each informative observation, the posterior is revised, invalidated candidates are suppressed, and previously rejected candidates may be reopened when time or evidence makes them plausible again.</p>
@@ -104,7 +118,7 @@
     </section>
 
     <section id="explorer" class="paper-section explorer-section" aria-labelledby="explorer-title">
-      <div class="ex-intro"><span class="ex-eyebrow">INTERACTIVE DEMONSTRATION</span><span class="ex-demo-label">HSSD scene · illustrative belief update</span></div>
+      <div class="ex-intro"><span class="ex-eyebrow">04 / EXPLORE THE IDEA</span><span class="ex-demo-label">HSSD scene · illustrative belief update</span></div>
       <h2 id="explorer-title">Interactive 4D World Memory Explorer</h2>
       <p class="ex-description">Explore a real HSSD scene from above. Follow the quadruped’s inspection route and see how new evidence changes an illustrative belief over object locations.</p>
       <div class="ex-shell" id="world-explorer" hidden>
@@ -125,7 +139,7 @@
     </section>
 
     <section id="benchmark" class="paper-section">
-      <h2>EvoWorld-Bench</h2>
+      <span class="section-kicker">05 / THE BENCHMARK</span><h2>EvoWorld-Bench</h2>
       <p>EvoWorld-Bench evaluates navigation when the world changes between observations and may continue changing while the agent acts. The latest release contains <b>54 scenes</b> and <b>803.68K executable tasks</b>, with persistent temporal histories, causal observability, controlled dynamics, and held-out transfer settings.</p>
       <div class="benchmark-figure-grid">
         <figure class="paper-figure benchmark-figure"><span class="figure-number">Figure 4</span><a class="figure-open" href="figures/dataset-generate.pdf" target="_blank" rel="noreferrer"><img src="figures/benchmark_figure4_web.png" alt="Figure 4: EvoWorld-Bench construction pipeline from human traces to executable evolving worlds" loading="lazy" width="1255" height="884" /></a><figcaption><b>Benchmark construction.</b> Human traces are aligned into a unified event schema, grounded and normalized, then instantiated as executable static, routine, and random worlds.</figcaption></figure>
@@ -135,10 +149,10 @@
     </section>
 
     <section id="results" class="paper-section">
-      <h2>Results</h2>
+      <span class="section-kicker">06 / EXPERIMENTS</span><h2>Evidence across environments.</h2>
       <p>EvolvingNav improves both the first destination selected from stale memory and the ability to recover within a search budget. It transfers across FindingDory, GOAT-Bench, EvoWorld-Bench, and physical LYNX M20 trials.</p>
       <div class="result-row"><div class="result"><strong>53.22%</strong><span>FindingDory HL-SR</span></div><div class="result"><strong>35.43%</strong><span>GOAT-Bench SR</span></div><div class="result"><strong>61.32%</strong><span>EvoWorld First-Inspection SR</span></div><div class="result"><strong>86.18%</strong><span>EvoWorld Search SR</span></div><div class="result"><strong>70.15%</strong><span>EvoWorld SPL</span></div></div>
-      <table class="results-table"><thead><tr><th>Method</th><th>FindingDory<br />HL-SR ↑</th><th>GOAT-Bench<br />SR ↑</th><th>EvoWorld<br />First-Inspection ↑</th><th>EvoWorld<br />Search SR ↑</th><th>EvoWorld<br />SPL ↑</th></tr></thead><tbody><tr><td>DynaMem</td><td>30.30</td><td>14.54</td><td>45.33</td><td>71.94</td><td>56.83</td></tr><tr class="ours"><td><b>EvolvingNav (ours)</b></td><td><b>53.22 ± 3.87</b></td><td><b>35.43 ± 2.16</b></td><td><b>61.32 ± 3.24</b></td><td><b>86.18 ± 2.07</b></td><td><b>70.15 ± 1.74</b></td></tr></tbody></table>
+      <div class="table-scroll" role="region" aria-label="Main results comparison" tabindex="0"><table class="results-table"><thead><tr><th>Method</th><th>FindingDory<br />HL-SR ↑</th><th>GOAT-Bench<br />SR ↑</th><th>EvoWorld<br />First-Inspection ↑</th><th>EvoWorld<br />Search SR ↑</th><th>EvoWorld<br />SPL ↑</th></tr></thead><tbody><tr><td>DynaMem</td><td>30.30</td><td>14.54</td><td>45.33</td><td>71.94</td><td>56.83</td></tr><tr class="ours"><td><b>EvolvingNav (ours)</b></td><td><b>53.22 ± 3.87</b></td><td><b>35.43 ± 2.16</b></td><td><b>61.32 ± 3.24</b></td><td><b>86.18 ± 2.07</b></td><td><b>70.15 ± 1.74</b></td></tr></tbody></table></div>
       <div class="latest-results-figures">
         <figure class="paper-figure full"><a class="figure-open" href="figures/P4D_CaseStudy.pdf" target="_blank" rel="noreferrer"><img src="figures/case_study_web_latest.png" alt="Qualitative EvoWorld-Bench cases showing predictive search and evidence-aware replanning" loading="lazy" width="1800" height="926" /></a><figcaption><b>Qualitative behavior.</b> Arrival-time prediction proposes likely destinations, while newly visible evidence suppresses stale hypotheses and triggers recovery.</figcaption></figure>
         <figure class="paper-figure full compact-result-figure"><a class="figure-open" href="figures/core_component_ablation_grouped.pdf" target="_blank" rel="noreferrer"><img src="figures/ablation_web_latest.png" alt="Ablation study of EvolvingNav components" loading="lazy" width="1172" height="410" /></a><figcaption><b>Component analysis.</b> Predictive transition modeling, visibility-aware filtering, and online evidence each contribute to robust first inspection and recovery.</figcaption></figure>
@@ -153,13 +167,13 @@
 
     <section class="paper-section resources"><h2>Resources</h2><div class="resource-links"><a href="main.pdf" target="_blank" rel="noreferrer">Paper PDF <span>↗</span></a><a href="https://github.com/DCDmllm/EvolvingNav/tree/main/code" target="_blank" rel="noreferrer">Code repository <span>↗</span></a><a href="figures/dataset-generate.pdf" target="_blank" rel="noreferrer">Benchmark construction figure <span>↗</span></a><a href="figures/P4D_Benchmark.pdf" target="_blank" rel="noreferrer">Benchmark protocols figure <span>↗</span></a><a href="figures/predictive-memory.pdf" target="_blank" rel="noreferrer">Predictive diagnostics <span>↗</span></a></div></section>
 
-    <section id="bibtex" class="paper-section bibtex"><h2>BibTeX</h2><pre>@inproceedings{evolvingnav2027,
+    <section id="bibtex" class="paper-section bibtex"><div class="citation-heading"><div><span class="section-kicker">CITE THIS WORK</span><h2>BibTeX</h2></div><button type="button" id="copy-citation">Copy citation</button><span id="copy-status" role="status"></span></div><pre>@inproceedings{evolvingnav2027,
   title     = {Beyond the Remembered World: Predictive 4D Belief for Persistent Navigation in Evolving Worlds},
-  author    = {EvolvingNav authors},
+  author    = {Gao, Mingjian and Li, Zhaocheng and Huang, Haoyang and Zhang, Wenqiao and Niu, Yingjie and Zhou, Hao and Li, Chao and Li, Juncheng and Tang, Siliang and Zhuang, Yueting},
   booktitle = {International Conference on Learning Representations},
   year      = {2027}
 }</pre></section>
   </main>
-  <footer><div class="page-width">EvolvingNav</div></footer>
+  <footer><div class="page-width"><a href="#top" class="footer-wordmark">EvolvingNav<span>↗</span></a><p>Beyond the Remembered World</p><a href="https://github.com/DCDmllm/EvolvingNav/tree/main/code">Explore the research code ↗</a></div></footer>
 </body>
 </html>
