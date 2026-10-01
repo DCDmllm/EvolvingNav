@@ -63,7 +63,7 @@ For dataset paths, model training, and benchmark commands, see [`code/README.md`
 
 ## Project page
 
-The complete paper website is available at [dcdmllm.github.io/EvolvingNav](https://dcdmllm.github.io/EvolvingNav/).
+The complete paper website is available at [zju4embodiedai.github.io/EvolvingNav](https://zju4embodiedai.github.io/EvolvingNav/).
 
 ## Citation
 
